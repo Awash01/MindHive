@@ -1,0 +1,335 @@
+# ============================================================
+# ENVIRONMENT VARIABLES & SECRETS
+# ============================================================
+
+.env
+.env.*
+!.env.example
+*.env.local
+*.env.development
+*.env.production
+
+# Secrets / credentials
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+*.secret
+*.secrets
+
+secrets/
+credentials/
+**/secrets/
+**/credentials/
+
+# Firebase
+serviceAccountKey.json
+firebase-service-account.json
+firebase-adminsdk-*.json
+**/serviceAccountKey.json
+**/*firebase-adminsdk*.json
+
+
+# ============================================================
+# NODE.JS / MERN
+# ============================================================
+
+node_modules/
+
+.npm/
+.yarn/
+.pnpm-store/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# Keep package.json and package-lock.json tracked
+# DO NOT ignore package-lock.json
+
+
+# ============================================================
+# REACT / VITE / NEXT.JS
+# ============================================================
+
+.next/
+.nuxt/
+.output/
+.vite/
+
+dist/
+build/
+out/
+
+.cache/
+.parcel-cache/
+.turbo/
+coverage/
+
+
+# ============================================================
+# MICROSERVICES / LOCAL RUNTIME DATA
+# ============================================================
+
+logs/
+log/
+**/logs/
+
+tmp/
+temp/
+**/tmp/
+**/temp/
+
+*.pid
+*.pid.lock
+
+
+# ============================================================
+# MONGODB
+# ============================================================
+
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.bak
+
+mongo-data/
+mongodb-data/
+data/
+
+# MongoDB storage files
+*.wt
+WiredTiger*
+WiredTiger.lock
+WiredTiger.turtle
+
+
+# ============================================================
+# REDIS
+# ============================================================
+
+dump.rdb
+appendonly.aof
+nodes.conf
+
+redis-data/
+redis-data/*
+
+
+# ============================================================
+# QDRANT / VECTOR DATABASES
+# ============================================================
+
+qdrant-data/
+qdrant_storage/
+qdrant_storage/*
+
+vectorstore/
+vectorstores/
+vector_db/
+vectordb/
+
+chroma/
+chroma_db/
+
+*.faiss
+*.index
+
+
+# ============================================================
+# RAG / AI / ML MODELS
+# ============================================================
+
+models/
+model/
+checkpoints/
+
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+*.pt
+*.pth
+*.onnx
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+
+# ============================================================
+# LANGCHAIN / LANGGRAPH LOCAL DATA
+# ============================================================
+
+.langchain/
+.langgraph/
+langchain_cache/
+langgraph_cache/
+
+
+# ============================================================
+# FILE UPLOADS / GENERATED DATA
+# ============================================================
+
+uploads/
+uploaded/
+storage/
+generated/
+generated-files/
+
+# Temporary documents
+*.tmp
+*.temp
+
+
+# ============================================================
+# DOCKER
+# ============================================================
+
+# IMPORTANT:
+# Dockerfile              -> TRACK
+# docker-compose.yml      -> TRACK
+# docker-compose.yaml     -> TRACK
+
+# Local Docker overrides
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose.*.local.yml
+
+# Local Docker data
+.docker/
+docker-data/
+docker-volumes/
+
+
+# ============================================================
+# AWS / CLOUD / TERRAFORM
+# ============================================================
+
+.aws/
+aws-credentials
+credentials.csv
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Serverless
+.serverless/
+
+# AWS SAM
+.aws-sam/
+
+
+# ============================================================
+# AUTH / JWT / SESSION
+# ============================================================
+
+jwt-secret*
+session-secret*
+auth-secret*
+
+
+# ============================================================
+# IDE / EDITORS
+# ============================================================
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+.idea/
+*.iml
+
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+
+# ============================================================
+# OPERATING SYSTEM
+# ============================================================
+
+.DS_Store
+.DS_Store?
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+
+# ============================================================
+# TEMPORARY / BACKUP FILES
+# ============================================================
+
+*.swp
+*.swo
+*.bak
+*.old
+*.orig
+*~
+
+
+# ============================================================
+# PYTHON ENVIRONMENTS
+# ============================================================
+
+.venv/
+venv/
+env/
+ENV/
+
+
+# ============================================================
+# DEPLOYMENT
+# ============================================================
+
+.vercel/
+.netlify/
+
+# Kubernetes local credentials
+.kube/
+kubeconfig
+*.kubeconfig
+
+
+# ============================================================
+# LOCAL CONFIG FILES
+# ============================================================
+
+*.local.json
+*.local.yaml
+*.local.yml
+config.local.*
+
+
+# ============================================================
+# LARGE ARCHIVES / GENERATED FILES
+# ============================================================
+
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
