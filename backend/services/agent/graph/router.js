@@ -1,11 +1,17 @@
 // ye router agent decide krega ki kiss agent ko call krna hai.......
 
-
-import { getModel } from "../config/llmModels.js"
+import { getModel } from "../config/llmModels.js";
 
 export const router = async (state) => {
-    const llm = await getModel("router")
-    const prompt = `You are an agent router.
+  if (state.agent && state.agent !== "auto") {
+    return {
+      ...state,
+      agent: state.agent,
+    };
+  }
+
+  const llm = await getModel("router");
+  const prompt = `You are an agent router.
 
 Available agents:
 
@@ -62,12 +68,12 @@ vision
 
 User Query:
  ${state.prompt}
-`
+`;
 
-const response = await llm.invoke(prompt)
-console.log("Response from routerAgent:",response)
-return{
+  const response = await llm.invoke(prompt);
+
+  return {
     ...state,
-    agent:response.content.trim().toLowerCase()
-}
-}
+    agent: response.content.trim().toLowerCase(),
+  };
+};
