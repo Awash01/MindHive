@@ -8,7 +8,7 @@ export const searchAgent = async (state) => {
     console.log(results);
     return {
       ...state,
-      searchResults: results,
+      searchResults: results.results?.slice(0, 3),
       images: results.images,
     };
   } catch (error) {
