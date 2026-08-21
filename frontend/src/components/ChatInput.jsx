@@ -26,7 +26,7 @@ function ChatInput() {
   const [value, setValue] = useState("");
   const [selectedAgent, setSelectedAgent] = useState("Auto");
   const { selectedConversation } = useSelector((state) => state.conversation);
-  const { messages } = useSelector((state) => state.message);
+  
   const dispatch = useDispatch();
   const handleSendMessage = async () => {
     let conversation = selectedConversation;
@@ -59,7 +59,7 @@ function ChatInput() {
     dispatch(addMessage({ role: "user", content: value.trim() }));
     setValue("");
     const data = await sendMessage(payload);
-    dispatch(addMessage({ role: "assistant", content: data }));
+    dispatch(addMessage({ role: "assistant", content: data.answer, images:data.images }));
     console.log(data);
   };
   const agents = [
