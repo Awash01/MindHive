@@ -145,6 +145,18 @@ const MessageBubble = ({ role, content, images }) => {
                 </div>
               );
             },
+            img:({src})=>{
+              if (!src) return null;
+              return (
+                <img
+                  src={src}
+                  onClick={() => setLightBox(src)}
+                  loading="lazy"
+                  onError={(e) => e.currentTarget.remove()}
+                  className="rounded-xl border border-white/10 cursor-zoom-in hover:opacity-90 transition"
+                />
+              );
+            }
           }}
         >
           {content}
