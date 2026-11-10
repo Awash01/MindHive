@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { getFromS3 } from "../utils/getFromS3.js";
 import { uploadToS3 } from "../utils/uploadToS3.js";
+import { deductCredits } from "../utils/deductCredits.js";
 
 export const visionAgent = async (state) => {
   try {
@@ -34,6 +35,7 @@ export const visionAgent = async (state) => {
     try {
       const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`;
       imageRes = await axios.get(imageUrl, { responseType: "arraybuffer", timeout: 30000 });
+      await deductCredits(state.userId,"vision")
     } catch (apiError) {
       console.error("Image API Error:", apiError);
       return { ...state, aiResponse: `❌ Image Generation API failed: ${apiError.message}` };
