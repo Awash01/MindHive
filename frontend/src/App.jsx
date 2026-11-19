@@ -12,7 +12,6 @@ function App() {
   useEffect(() => {
     const getUser=async()=>{
       const data=await getCurrentUser();
-      console.log("userdata(App)::::", data)
       dispatch(setUserData(data));
     }
     getUser();

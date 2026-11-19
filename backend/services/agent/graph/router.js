@@ -9,7 +9,8 @@ export const router = async (state) => {
       agent: state.agent,
     };
   }
-  if(state.file.mimetype==="application/pdf"){
+  if(state.file){
+      if(state.file.mimetype==="application/pdf"){
     return {
       ...state,
       agent:"pdfRag"
@@ -21,6 +22,8 @@ export const router = async (state) => {
       agent:"imageAnalyzer"
     }
   }
+  }
+
   const llm = await getModel("router");
   const prompt = `You are an agent router.
 
