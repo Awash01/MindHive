@@ -6,9 +6,11 @@ import {
 import { getModel } from "../config/llmModels.js";
 import { getMemory } from "../config/memory.js";
 import { deductCredits } from "../utils/deductCredits.js";
+import { checkAgentLimit } from "../config/agentlimit.js";
 
 export const chatAgent = async (state) => {
   try {
+    await checkAgentLimit(state.userId, "chat")
     
     const llm = await getModel("chat");
 
@@ -62,9 +64,10 @@ Formatting:
       aiResponse: response.content,
     };
   } catch (error) {
-    return {
+    console.log(error)
+        return {
       ...state,
-      aiResponse:"❌ Failed to generate image.",
-    };
+      aiResponse: error?.data?.message || "failed to generate chat", 
+    }; 
   }
 };

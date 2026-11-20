@@ -4,9 +4,11 @@ import axios from "axios";
 import { getFromS3 } from "../utils/getFromS3.js";
 import { uploadToS3 } from "../utils/uploadToS3.js";
 import { deductCredits } from "../utils/deductCredits.js";
+import { checkAgentLimit } from "../config/agentlimit.js";
 
 export const visionAgent = async (state) => {
   try {
+    await checkAgentLimit(state.userId, "image");
     if (!state.prompt) {
       return { ...state, aiResponse: "❌ Error: No prompt provided." };
     }
@@ -24,7 +26,10 @@ export const visionAgent = async (state) => {
       `);
     } catch (llmError) {
       console.error("LLM Error:", llmError);
-      return { ...state, aiResponse: `❌ LLM Prompt Engineering failed: ${llmError.message}` };
+      return {
+        ...state,
+        aiResponse: `❌ LLM Prompt Engineering failed: ${llmError.message}`,
+      };
     }
 
     const prompt = res.content.trim();
@@ -34,11 +39,17 @@ export const visionAgent = async (state) => {
     let imageRes;
     try {
       const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`;
-      imageRes = await axios.get(imageUrl, { responseType: "arraybuffer", timeout: 30000 });
-      await deductCredits(state.userId,"vision")
+      imageRes = await axios.get(imageUrl, {
+        responseType: "arraybuffer",
+        timeout: 30000,
+      });
+      await deductCredits(state.userId, "vision");
     } catch (apiError) {
       console.error("Image API Error:", apiError);
-      return { ...state, aiResponse: `❌ Image Generation API failed: ${apiError.message}` };
+      return {
+        ...state,
+        aiResponse: `❌ Image Generation API failed: ${apiError.message}`,
+      };
     }
 
     // 3. S3 Upload
@@ -50,7 +61,10 @@ export const visionAgent = async (state) => {
       console.log("S3 Upload Successful:", filename);
     } catch (uploadError) {
       console.error("S3 Upload Error:", uploadError);
-      return { ...state, aiResponse: `❌ S3 Upload failed: ${uploadError.message}` };
+      return {
+        ...state,
+        aiResponse: `❌ S3 Upload failed: ${uploadError.message}`,
+      };
     }
 
     // 4. S3 Download URL Retrieval
@@ -62,13 +76,16 @@ export const visionAgent = async (state) => {
       };
     } catch (getError) {
       console.error("S3 Retrieval Error:", getError);
-      return { ...state, aiResponse: `❌ S3 URL Retrieval failed: ${getError.message}` };
+      return {
+        ...state,
+        aiResponse: `❌ S3 URL Retrieval failed: ${getError.message}`,
+      };
     }
-  } catch (globalError) {
-    console.error("Global Vision Agent Error:", globalError);
+  } catch (error) {
+    console.log(error);
     return {
       ...state,
-      aiResponse: `❌ Unexpected Error: ${globalError.message}`,
+      aiResponse: error?.data?.message || "Failed to generate image",
     };
   }
 };
