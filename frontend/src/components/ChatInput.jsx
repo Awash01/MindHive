@@ -25,6 +25,7 @@ import { updateConversation } from "../features/updateConversation.js";
 import { useRef } from "react";
 
 function ChatInput() {
+  const {isLoading} = useSelector(state=>state)
   const [value, setValue] = useState("");
   const [selectedAgent, setSelectedAgent] = useState("Auto");
   const { selectedConversation } = useSelector((state) => state.conversation);
@@ -221,7 +222,7 @@ function ChatInput() {
             </button>
           </div>
           <button
-            disabled={!value}
+            disabled={!value && isLoading}
             onClick={handleSendMessage}
             className={`flex items-center justify-center w-8 h-8 rounded-lg
             border transition-all duration-200 ease-out
